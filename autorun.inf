@@ -1,0 +1,5 @@
+[autorun]
+Open=index.html
+Icon=assets/ai-icon.ico
+Label=Emotional AI Companion
+Action=Start Emotional AI Companion
