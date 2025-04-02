@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emotional AI Companion</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .chat-container {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+        .typing-indicator::after {
+            content: '...';
+            animation: typing 1.5s infinite;
+        }
+        @keyframes typing {
+            0%, 33% { content: '.'; }
+            34%, 66% { content: '..'; }
+            67%, 100% { content: '...'; }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <!-- Welcome Screen -->
+    <div id="welcome-modal" class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-90 z-50">
+        <div class="p-8 bg-white rounded-lg shadow-xl max-w-md text-center">
+            <img id="welcome-avatar" src="assets/ai-happy.png" class="w-32 h-32 mx-auto mb-6 rounded-full animate-bounce">
+            <h2 class="text-3xl font-bold mb-4">Your AI Companion</h2>
+            <p class="mb-6">I'm here to chat whenever you need emotional support or just someone to talk to.</p>
+            <button onclick="startChat()" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+                Start Chatting
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Chat Interface -->
+    <div class="container mx-auto max-w-4xl h-screen flex flex-col hidden" id="chat-interface">
+        <header class="py-4 px-6 bg-white shadow-sm">
+            <h1 class="text-2xl font-bold flex items-center">
+                <img id="avatar" src="assets/ai-neutral.png" class="w-10 h-10 rounded-full mr-3">
+                AI Emotional Companion
+            </h1>
+        </header>
+
+        <div class="chat-container flex-1 p-4 overflow-y-auto">
+            <div id="messages" class="space-y-4"></div>
+        </div>
+
+        <div class="p-4 bg-gray-800 bg-opacity-90">
+            <div class="flex items-center">
+                <input type="text" id="messageInput" placeholder="Type your message..." 
+                    class="flex-1 px-4 py-2 rounded-l-lg focus:outline-none text-black"
+                    autocomplete="off">
+                <button id="sendButton" class="px-4 py-2 bg-blue-600 text-white rounded-r-lg hover:bg-blue-700">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+                <button id="voiceButton" class="ml-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
+                    <i class="fas fa-microphone"></i>
+                </button>
+            </div>
+            <div id="status" class="text-sm mt-2 text-gray-300"></div>
+        </div>
+    </div>
+
+    <script src="emotionalAI.js"></script>
+    <script src="enhancedScript-working.js"></script>
+    <script>
+        function startChat() {
+            document.getElementById('welcome-modal').classList.add('hidden');
+            document.getElementById('chat-interface').classList.remove('hidden');
+            
+            // Force initialize chat
+            if (typeof initChat === 'function') {
+                initChat();
+            }
+        }
+        
+        // Verify elements exist on load
+        document.addEventListener('DOMContentLoaded', () => {
+            const requiredElements = [
+                'messages', 'messageInput', 'sendButton', 
+                'welcome-modal', 'chat-interface'
+            ];
+            
+            const missing = requiredElements.filter(id => !document.getElementById(id));
+            if (missing.length > 0) {
+                console.error('Missing elements:', missing);
+                alert('Chat initialization error - missing required elements');
+            }
+        });
+    </script>
+</body>
+</html>
