@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Emotional Chatbot</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .chat-container {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+        .typing-indicator::after {
+            content: '...';
+            animation: typing 1.5s infinite;
+        }
+        @keyframes typing {
+            0% { content: '.'; }
+            33% { content: '..'; }
+            66% { content: '...'; }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <div class="container mx-auto max-w-4xl h-screen flex flex-col">
+        <header class="py-4 px-6 bg-gray-800 bg-opacity-90">
+            <h1 class="text-2xl font-bold flex items-center">
+                <img src="https://images.pexels.com/photos/3303448/pexels-photo-3303448.jpeg" 
+                     class="w-10 h-10 rounded-full mr-3 object-cover">
+                AI Emotional Companion
+            </h1>
+        </header>
+
+        <div class="chat-container flex-1 p-4 overflow-y-auto">
+            <div id="messages" class="space-y-4"></div>
+        </div>
+
+        <div class="p-4 bg-gray-800 bg-opacity-90">
+            <div class="flex">
+                <input id="messageInput" type="text" 
+                       class="flex-1 px-4 py-2 rounded-l-lg bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                       placeholder="Type your message...">
+                <button id="sendButton" 
+                        class="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-r-lg transition">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+            <div class="mt-2 flex justify-between text-sm text-gray-400">
+                <button id="clearButton" class="hover:text-white transition">
+                    <i class="fas fa-trash mr-1"></i> Clear Chat
+                </button>
+                <span id="status" class="italic"></span>
+            </div>
+        </div>
+    </div>
+
+    <script src="emotionalAI.js"></script>
+    <script src="enhancedScript.js"></script>
+    <script>
+        function startChat() {
+            document.getElementById('welcome-modal').classList.add('hidden');
+            document.getElementById('chat-interface').classList.remove('hidden');
+            // Trigger initial greeting
+            setTimeout(() => {
+                addMessage("Hello! I'm your AI companion. How can I help you today?", false, 'happy');
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
